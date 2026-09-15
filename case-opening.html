@@ -29,6 +29,32 @@
             margin-bottom: 30px;
         }
 
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #667eea;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+        }
+
         .balance {
             font-size: 32px;
             font-weight: bold;
@@ -174,6 +200,132 @@
             color: #FFD700;
             text-align: center;
             margin: 10px 0;
+        }
+
+        .drop-rates-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 15px;
+            color: #aaa;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .drop-rates-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .drop-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 10px;
+            justify-content: space-between;
+        }
+
+        .drop-item-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drop-chance {
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 15px;
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+        }
+
+        .collection-view {
+            display: none;
+        }
+
+        .collection-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .collection-item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .collection-count {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            color: #FFD700;
         }
 
         .bulk-progress {
@@ -481,9 +633,47 @@
             <div class="balance-label">Ваш баланс</div>
             <div class="balance">$<span id="balance">999999</span></div>
         </div>
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showView('cases')">Кейсы</button>
+            <button class="nav-btn" onclick="showView('inventory')">Инвентарь</button>
+            <button class="nav-btn" onclick="showView('collection')">Коллекция</button>
+        </div>
     </div>
 
-    <div class="cases-container" id="cases"></div>
+    <div id="casesView">
+        <div class="cases-container" id="cases"></div>
+    </div>
+
+    <div id="inventoryView" style="display: none;">
+        <div class="inventory">
+            <h2 class="inventory-title">Ваш инвентарь</h2>
+            <div class="inventory-grid" id="inventory"></div>
+        </div>
+    </div>
+
+    <div id="collectionView" class="collection-view">
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 32px;">Коллекция</h2>
+        <div class="collection-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalOpened">0</div>
+                <div class="stat-label">Всего открыто</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="uniqueItems">0</div>
+                <div class="stat-label">Уникальных предметов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalSpent">$0</div>
+                <div class="stat-label">Потрачено</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalEarned">$0</div>
+                <div class="stat-label">Получено ценности</div>
+            </div>
+        </div>
+        <h3 style="margin-bottom: 20px;">Все выпавшие предметы</h3>
+        <div class="collection-grid" id="collectionGrid"></div>
+    </div>
 
     <div class="bulk-progress" id="bulkProgress">
         <h2 style="margin-bottom: 20px;">Открываем кейсы...</h2>
@@ -514,18 +704,29 @@
         </div>
     </div>
 
-    <div class="inventory">
-        <h2 class="inventory-title">Ваш инвентарь</h2>
-        <div class="inventory-grid" id="inventory"></div>
+    <div class="modal" id="dropRatesModal">
+        <div class="modal-content">
+            <div class="modal-header">Шансы выпадения</div>
+            <div id="dropRatesList"></div>
+            <button class="close-btn" onclick="closeDropRates()" style="width: 100%; margin-top: 20px;">Закрыть</button>
+        </div>
     </div>
 
     <script>
         let balance = localStorage.getItem('balance') ? parseInt(localStorage.getItem('balance')) : 999999;
         let inventory = localStorage.getItem('inventory') ? JSON.parse(localStorage.getItem('inventory')) : [];
+        let collection = localStorage.getItem('collection') ? JSON.parse(localStorage.getItem('collection')) : {};
+        let stats = localStorage.getItem('stats') ? JSON.parse(localStorage.getItem('stats')) : {
+            totalOpened: 0,
+            totalSpent: 0,
+            totalEarned: 0
+        };
 
         function saveData() {
             localStorage.setItem('balance', balance);
             localStorage.setItem('inventory', JSON.stringify(inventory));
+            localStorage.setItem('collection', JSON.stringify(collection));
+            localStorage.setItem('stats', JSON.stringify(stats));
         }
 
         const subscriptions = {
@@ -663,6 +864,7 @@
                         <div class="amount-display" id="display-${caseItem.id}">x10 = $${(caseItem.price * 10).toLocaleString()}</div>
                         <button class="open-btn-x20" onclick="openBulkCase(${caseItem.id})">Открыть</button>
                     </div>
+                    <button class="drop-rates-btn" onclick="showDropRates(${caseItem.id})">📊 Шансы дропа</button>
                 </div>
             `).join('');
         }
@@ -690,6 +892,8 @@
 
             balance -= caseData.price;
             updateBalance();
+            stats.totalOpened += 1;
+            stats.totalSpent += caseData.price;
             saveData();
 
             const wonItem = getRandomItem(caseData.items);
@@ -734,6 +938,8 @@
                 animation.style.display = 'none';
                 showResult(wonItem);
                 inventory.push(wonItem);
+                addToCollection(wonItem);
+                stats.totalEarned += wonItem.price;
                 saveData();
                 renderInventory();
             }, 4500);
@@ -783,6 +989,8 @@
 
             balance -= totalCost;
             updateBalance();
+            stats.totalOpened += amount;
+            stats.totalSpent += totalCost;
             saveData();
 
             const bulkProgress = document.getElementById('bulkProgress');
@@ -808,7 +1016,11 @@
                 } else {
                     bulkProgress.style.display = 'none';
                     showBulkResults(wonItems);
-                    wonItems.forEach(item => inventory.push(item));
+                    wonItems.forEach(item => {
+                        inventory.push(item);
+                        addToCollection(item);
+                        stats.totalEarned += item.price;
+                    });
                     saveData();
                     renderInventory();
                 }
@@ -873,6 +1085,107 @@
 
         function updateBalance() {
             document.getElementById('balance').textContent = balance.toLocaleString();
+        }
+
+        function showView(view) {
+            // Hide all views
+            document.getElementById('casesView').style.display = 'none';
+            document.getElementById('inventoryView').style.display = 'none';
+            document.getElementById('collectionView').style.display = 'none';
+
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected view
+            if (view === 'cases') {
+                document.getElementById('casesView').style.display = 'block';
+                document.querySelectorAll('.nav-btn')[0].classList.add('active');
+            } else if (view === 'inventory') {
+                document.getElementById('inventoryView').style.display = 'block';
+                document.querySelectorAll('.nav-btn')[1].classList.add('active');
+            } else if (view === 'collection') {
+                document.getElementById('collectionView').style.display = 'block';
+                document.querySelectorAll('.nav-btn')[2].classList.add('active');
+                renderCollection();
+            }
+        }
+
+        function addToCollection(item) {
+            const key = `${item.service}_${item.rarity}`;
+            if (!collection[key]) {
+                collection[key] = {
+                    service: item.service,
+                    rarity: item.rarity,
+                    price: item.price,
+                    count: 0
+                };
+            }
+            collection[key].count += 1;
+        }
+
+        function renderCollection() {
+            const totalOpened = document.getElementById('totalOpened');
+            const uniqueItems = document.getElementById('uniqueItems');
+            const totalSpent = document.getElementById('totalSpent');
+            const totalEarned = document.getElementById('totalEarned');
+
+            totalOpened.textContent = stats.totalOpened;
+            uniqueItems.textContent = Object.keys(collection).length;
+            totalSpent.textContent = '$' + stats.totalSpent.toLocaleString();
+            totalEarned.textContent = '$' + stats.totalEarned.toLocaleString();
+
+            const collectionGrid = document.getElementById('collectionGrid');
+            const collectionArray = Object.values(collection).sort((a, b) => b.count - a.count);
+
+            collectionGrid.innerHTML = collectionArray.map(item => {
+                const sub = subscriptions[item.service];
+                return `
+                    <div class="collection-item ${item.rarity}" style="position: relative;">
+                        <div class="collection-count">x${item.count}</div>
+                        <div class="service-logo-small" style="background: ${sub.color}; margin: 0 auto 10px;">
+                            <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
+                        </div>
+                        <div class="item-name">${sub.name}</div>
+                        <div class="item-price">$${item.price.toLocaleString()}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showDropRates(caseId) {
+            const caseData = cases.find(c => c.id === caseId);
+            const modal = document.getElementById('dropRatesModal');
+            const dropRatesList = document.getElementById('dropRatesList');
+
+            const totalChance = caseData.items.reduce((sum, item) => sum + item.chance, 0);
+
+            dropRatesList.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px; font-size: 20px; font-weight: bold;">${caseData.name}</div>
+                ${caseData.items.map(item => {
+                    const sub = subscriptions[item.service];
+                    const percentage = ((item.chance / totalChance) * 100).toFixed(2);
+                    return `
+                        <div class="drop-item ${item.rarity}">
+                            <div class="drop-item-info">
+                                <div class="service-logo-small" style="background: ${sub.color};">
+                                    <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
+                                </div>
+                                <div>
+                                    <div style="font-weight: bold;">${sub.name}</div>
+                                    <div style="color: #FFD700; font-size: 14px;">$${item.price.toLocaleString()}</div>
+                                </div>
+                            </div>
+                            <div class="drop-chance">${percentage}%</div>
+                        </div>
+                    `;
+                }).join('')}
+            `;
+
+            modal.style.display = 'flex';
+        }
+
+        function closeDropRates() {
+            document.getElementById('dropRatesModal').style.display = 'none';
         }
 
         renderCases();
