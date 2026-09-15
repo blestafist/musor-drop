@@ -722,6 +722,9 @@
             totalEarned: 0
         };
 
+        // Очистка старого инвентаря без duration
+        inventory = inventory.filter(item => item.duration && item.price);
+
         function saveData() {
             localStorage.setItem('balance', balance);
             localStorage.setItem('inventory', JSON.stringify(inventory));
@@ -1192,17 +1195,18 @@
 
         function renderInventory() {
             const inventoryGrid = document.getElementById('inventory');
-            inventoryGrid.innerHTML = inventory.map((item, index) => {
+            inventoryGrid.innerHTML = inventory.filter(item => item.duration && item.price && subscriptions[item.service]).map((item, index) => {
                 const sub = subscriptions[item.service];
+                if (!sub) return '';
                 return `
                     <div class="inventory-item ${item.rarity}">
                         <div class="service-logo-small" style="background: ${sub.color}; margin: 0 auto 10px;">
                             <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
                         </div>
                         <div class="item-name">${sub.name}</div>
-                        <div style="font-size: 12px; color: #aaa; margin-bottom: 5px;">${durations[item.duration].name}</div>
+                        <div style="font-size: 12px; color: #aaa; margin-bottom: 5px;">${durations[item.duration] ? durations[item.duration].name : '1 месяц'}</div>
                         <div class="item-price">$${item.price.toLocaleString()}</div>
-                        <button class="sell-btn" onclick="sellItem(${index})">Продать</button>
+                        <button class="sell-btn" onclick="sellItem(${inventory.indexOf(item)})">Продать</button>
                     </div>
                 `;
             }).join('');
@@ -1261,10 +1265,13 @@
             totalEarned.textContent = '$' + stats.totalEarned.toLocaleString();
 
             const collectionGrid = document.getElementById('collectionGrid');
-            const collectionArray = Object.values(collection).sort((a, b) => b.count - a.count);
+            const collectionArray = Object.values(collection).filter(item => 
+                subscriptions[item.service] && item.duration && durations[item.duration]
+            ).sort((a, b) => b.count - a.count);
 
             collectionGrid.innerHTML = collectionArray.map(item => {
                 const sub = subscriptions[item.service];
+                if (!sub) return '';
                 return `
                     <div class="collection-item ${item.rarity}" style="position: relative;">
                         <div class="collection-count">x${item.count}</div>
@@ -1272,7 +1279,7 @@
                             <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
                         </div>
                         <div class="item-name">${sub.name}</div>
-                        <div style="font-size: 11px; color: #aaa;">${durations[item.duration].name}</div>
+                        <div style="font-size: 11px; color: #aaa;">${durations[item.duration] ? durations[item.duration].name : '1 месяц'}</div>
                         <div class="item-price">$${item.price.toLocaleString()}</div>
                     </div>
                 `;
