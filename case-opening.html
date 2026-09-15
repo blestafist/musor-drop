@@ -730,33 +730,99 @@
         }
 
         const subscriptions = {
-            netflix: { name: 'Netflix Premium', color: '#E50914', svg: 'netflix' },
-            spotify: { name: 'Spotify Premium', color: '#1DB954', svg: 'spotify' },
-            youtube: { name: 'YouTube Premium', color: '#FF0000', svg: 'youtube' },
-            disney: { name: 'Disney+', color: '#113CCF', svg: 'disneyplus' },
-            hbo: { name: 'HBO Max', color: '#9D34DA', svg: 'hbo' },
-            apple: { name: 'Apple Music', color: '#FA243C', svg: 'applemusic' },
-            amazon: { name: 'Amazon Prime', color: '#00A8E1', svg: 'amazon' },
-            twitch: { name: 'Twitch Turbo', color: '#9146FF', svg: 'twitch' },
-            chatgpt: { name: 'ChatGPT Plus', color: '#10A37F', svg: 'openai' },
-            github: { name: 'GitHub Pro', color: '#181717', svg: 'github' },
-            dropbox: { name: 'Dropbox Plus', color: '#0061FF', svg: 'dropbox' },
-            nordvpn: { name: 'NordVPN', color: '#4687FF', svg: 'nordvpn' },
-            midjourney: { name: 'Midjourney Pro', color: '#000000', svg: 'midjourney' },
-            claude: { name: 'Claude Pro', color: '#CC9B7A', svg: 'anthropic' },
-            copilot: { name: 'GitHub Copilot', color: '#000000', svg: 'githubcopilot' },
-            runway: { name: 'Runway ML', color: '#0066FF', svg: 'runway' },
-            jasper: { name: 'Jasper AI', color: '#8B5CF6', svg: 'jasper' },
-            dalle: { name: 'DALL-E 3', color: '#10A37F', svg: 'openai' },
-            perplexity: { name: 'Perplexity Pro', color: '#1FB6FF', svg: 'perplexity' },
-            mistral: { name: 'Mistral AI', color: '#FF6B35', svg: 'mistral' },
-            grok: { name: 'Grok AI', color: '#000000', svg: 'x' },
-            gemini: { name: 'Gemini Advanced', color: '#4285F4', svg: 'googlegemini' },
-            cursor: { name: 'Cursor Pro', color: '#000000', svg: 'cursor' },
-            replit: { name: 'Replit AI', color: '#F26207', svg: 'replit' },
-            v0: { name: 'v0 by Vercel', color: '#000000', svg: 'vercel' },
-            poe: { name: 'Poe Premium', color: '#FF4B4B', svg: 'poe' }
+            netflix: { name: 'Netflix Premium', color: '#E50914', svg: 'netflix', basePrice: 15 },
+            spotify: { name: 'Spotify Premium', color: '#1DB954', svg: 'spotify', basePrice: 10 },
+            youtube: { name: 'YouTube Premium', color: '#FF0000', svg: 'youtube', basePrice: 12 },
+            disney: { name: 'Disney+', color: '#113CCF', svg: 'disneyplus', basePrice: 8 },
+            hbo: { name: 'HBO Max', color: '#9D34DA', svg: 'hbo', basePrice: 15 },
+            apple: { name: 'Apple Music', color: '#FA243C', svg: 'applemusic', basePrice: 10 },
+            amazon: { name: 'Amazon Prime', color: '#00A8E1', svg: 'amazon', basePrice: 14 },
+            twitch: { name: 'Twitch Turbo', color: '#9146FF', svg: 'twitch', basePrice: 9 },
+            chatgpt: { name: 'ChatGPT Plus', color: '#10A37F', svg: 'openai', basePrice: 20 },
+            github: { name: 'GitHub Pro', color: '#181717', svg: 'github', basePrice: 7 },
+            dropbox: { name: 'Dropbox Plus', color: '#0061FF', svg: 'dropbox', basePrice: 12 },
+            nordvpn: { name: 'NordVPN', color: '#4687FF', svg: 'nordvpn', basePrice: 12 },
+            midjourney: { name: 'Midjourney Pro', color: '#000000', svg: 'midjourney', basePrice: 30 },
+            claude: { name: 'Claude Pro', color: '#CC9B7A', svg: 'anthropic', basePrice: 100 },
+            copilot: { name: 'GitHub Copilot', color: '#000000', svg: 'githubcopilot', basePrice: 10 },
+            runway: { name: 'Runway ML', color: '#0066FF', svg: 'runway', basePrice: 35 },
+            jasper: { name: 'Jasper AI', color: '#8B5CF6', svg: 'jasper', basePrice: 40 },
+            dalle: { name: 'DALL-E 3', color: '#10A37F', svg: 'openai', basePrice: 20 },
+            perplexity: { name: 'Perplexity Pro', color: '#1FB6FF', svg: 'perplexity', basePrice: 20 },
+            mistral: { name: 'Mistral AI', color: '#FF6B35', svg: 'mistral', basePrice: 25 },
+            grok: { name: 'Grok AI', color: '#000000', svg: 'x', basePrice: 16 },
+            gemini: { name: 'Gemini Advanced', color: '#4285F4', svg: 'googlegemini', basePrice: 20 },
+            cursor: { name: 'Cursor Pro', color: '#000000', svg: 'cursor', basePrice: 20 },
+            replit: { name: 'Replit AI', color: '#F26207', svg: 'replit', basePrice: 25 },
+            v0: { name: 'v0 by Vercel', color: '#000000', svg: 'vercel', basePrice: 20 },
+            poe: { name: 'Poe Premium', color: '#FF4B4B', svg: 'poe', basePrice: 20 },
+            
+            // Новые подписки (50 штук)
+            notion: { name: 'Notion Plus', color: '#000000', svg: 'notion', basePrice: 8 },
+            canva: { name: 'Canva Pro', color: '#00C4CC', svg: 'canva', basePrice: 13 },
+            figma: { name: 'Figma Pro', color: '#F24E1E', svg: 'figma', basePrice: 12 },
+            adobe: { name: 'Adobe Creative Cloud', color: '#FF0000', svg: 'adobe', basePrice: 55 },
+            grammarly: { name: 'Grammarly Premium', color: '#15C39A', svg: 'grammarly', basePrice: 12 },
+            linkedin: { name: 'LinkedIn Premium', color: '#0A66C2', svg: 'linkedin', basePrice: 30 },
+            slack: { name: 'Slack Pro', color: '#4A154B', svg: 'slack', basePrice: 8 },
+            zoom: { name: 'Zoom Pro', color: '#2D8CFF', svg: 'zoom', basePrice: 15 },
+            evernote: { name: 'Evernote Premium', color: '#00A82D', svg: 'evernote', basePrice: 8 },
+            duolingo: { name: 'Duolingo Plus', color: '#58CC02', svg: 'duolingo', basePrice: 7 },
+            udemy: { name: 'Udemy Pro', color: '#A435F0', svg: 'udemy', basePrice: 20 },
+            skillshare: { name: 'Skillshare Premium', color: '#00FF84', svg: 'skillshare', basePrice: 14 },
+            masterclass: { name: 'MasterClass', color: '#000000', svg: 'masterclass', basePrice: 15 },
+            coursera: { name: 'Coursera Plus', color: '#0056D2', svg: 'coursera', basePrice: 59 },
+            audible: { name: 'Audible Premium', color: '#FF9900', svg: 'audible', basePrice: 15 },
+            kindle: { name: 'Kindle Unlimited', color: '#FF9900', svg: 'amazon', basePrice: 10 },
+            scribd: { name: 'Scribd', color: '#1A7BBA', svg: 'scribd', basePrice: 10 },
+            medium: { name: 'Medium Membership', color: '#000000', svg: 'medium', basePrice: 5 },
+            patreon: { name: 'Patreon Pro', color: '#FF424D', svg: 'patreon', basePrice: 12 },
+            discord: { name: 'Discord Nitro', color: '#5865F2', svg: 'discord', basePrice: 10 },
+            telegram: { name: 'Telegram Premium', color: '#26A5E4', svg: 'telegram', basePrice: 5 },
+            trello: { name: 'Trello Premium', color: '#0052CC', svg: 'trello', basePrice: 10 },
+            asana: { name: 'Asana Premium', color: '#F06A6A', svg: 'asana', basePrice: 11 },
+            monday: { name: 'Monday.com Pro', color: '#FF3D57', svg: 'monday', basePrice: 10 },
+            airtable: { name: 'Airtable Plus', color: '#18BFFF', svg: 'airtable', basePrice: 10 },
+            miro: { name: 'Miro Pro', color: '#FFD02F', svg: 'miro', basePrice: 8 },
+            clickup: { name: 'ClickUp Unlimited', color: '#7B68EE', svg: 'clickup', basePrice: 9 },
+            todoist: { name: 'Todoist Pro', color: '#E44332', svg: 'todoist', basePrice: 4 },
+            lastpass: { name: 'LastPass Premium', color: '#D32D27', svg: 'lastpass', basePrice: 3 },
+            bitwarden: { name: 'Bitwarden Premium', color: '#175DDC', svg: 'bitwarden', basePrice: 1 },
+            expressvpn: { name: 'ExpressVPN', color: '#DA3940', svg: 'expressvpn', basePrice: 13 },
+            surfshark: { name: 'Surfshark VPN', color: '#00B8D4', svg: 'surfshark', basePrice: 12 },
+            protonvpn: { name: 'ProtonVPN Plus', color: '#56347C', svg: 'protonvpn', basePrice: 10 },
+            malwarebytes: { name: 'Malwarebytes Premium', color: '#FF6633', svg: 'malwarebytes', basePrice: 4 },
+            mcafee: { name: 'McAfee Total Protection', color: '#C8102E', svg: 'mcafee', basePrice: 5 },
+            norton: { name: 'Norton 360', color: '#FFC107', svg: 'norton', basePrice: 5 },
+            dashlane: { name: 'Dashlane Premium', color: '#00B388', svg: 'dashlane', basePrice: 5 },
+            keeper: { name: 'Keeper Security', color: '#EB1C23', svg: 'keeper', basePrice: 3 },
+            grammarly2: { name: 'ProWritingAid', color: '#0033CC', svg: 'prowritingaid', basePrice: 20 },
+            headspace: { name: 'Headspace Plus', color: '#F47D31', svg: 'headspace', basePrice: 13 },
+            calm: { name: 'Calm Premium', color: '#2196F3', svg: 'calm', basePrice: 15 },
+            peloton: { name: 'Peloton Digital', color: '#000000', svg: 'peloton', basePrice: 13 },
+            strava: { name: 'Strava Premium', color: '#FC4C02', svg: 'strava', basePrice: 8 },
+            myfitnesspal: { name: 'MyFitnessPal Premium', color: '#0072C6', svg: 'myfitnesspal', basePrice: 10 },
+            noom: { name: 'Noom Weight', color: '#F15D3A', svg: 'noom', basePrice: 60 },
+            wix: { name: 'Wix Premium', color: '#0C6EFC', svg: 'wix', basePrice: 14 },
+            squarespace: { name: 'Squarespace Personal', color: '#000000', svg: 'squarespace', basePrice: 16 },
+            shopify: { name: 'Shopify Basic', color: '#96BF48', svg: 'shopify', basePrice: 29 },
+            mailchimp: { name: 'Mailchimp Standard', color: '#FFE01B', svg: 'mailchimp', basePrice: 17 },
+            hootsuite: { name: 'Hootsuite Professional', color: '#000000', svg: 'hootsuite', basePrice: 49 },
+            buffer: { name: 'Buffer Essentials', color: '#168EEA', svg: 'buffer', basePrice: 6 },
+            later: { name: 'Later Starter', color: '#FF6B35', svg: 'later', basePrice: 18 },
+            semrush: { name: 'SEMrush Pro', color: '#FF642D', svg: 'semrush', basePrice: 120 }
         };
+
+        const durations = {
+            1: { name: '1 месяц', multiplier: 1 },
+            3: { name: '3 месяца', multiplier: 2.7 },
+            6: { name: '6 месяцев', multiplier: 5 },
+            12: { name: '1 год', multiplier: 9 }
+        };
+
+        function calculatePrice(basePrice, months) {
+            return Math.round(basePrice * durations[months].multiplier);
+        }
 
         const cases = [
             {
@@ -765,10 +831,10 @@
                 price: 100,
                 image: 'https://image.pollinations.ai/prompt/silver%20metallic%20mystery%20box%20with%20white%20glowing%20lights%203D%20render%20dark%20background%20realistic?width=400&height=300&nologo=true&seed=101',
                 items: [
-                    { service: 'spotify', rarity: 'common', price: 50, chance: 40 },
-                    { service: 'youtube', rarity: 'common', price: 60, chance: 30 },
-                    { service: 'apple', rarity: 'uncommon', price: 150, chance: 20 },
-                    { service: 'netflix', rarity: 'rare', price: 300, chance: 10 }
+                    { service: 'spotify', rarity: 'common', duration: 1, chance: 40 },
+                    { service: 'youtube', rarity: 'common', duration: 1, chance: 30 },
+                    { service: 'apple', rarity: 'uncommon', duration: 3, chance: 20 },
+                    { service: 'netflix', rarity: 'rare', duration: 3, chance: 10 }
                 ]
             },
             {
@@ -777,11 +843,11 @@
                 price: 500,
                 image: 'https://image.pollinations.ai/prompt/entertainment%20case%20box%2C%20vibrant%20purple%20and%20pink%20neon%20lights%2C%20cinema%20theme%2C%203D%20render%2C%20dark%20background?width=400&height=300&nologo=true',
                 items: [
-                    { service: 'youtube', rarity: 'uncommon', price: 200, chance: 35 },
-                    { service: 'netflix', rarity: 'rare', price: 600, chance: 25 },
-                    { service: 'disney', rarity: 'rare', price: 700, chance: 20 },
-                    { service: 'hbo', rarity: 'epic', price: 1200, chance: 15 },
-                    { service: 'twitch', rarity: 'legendary', price: 2500, chance: 5 }
+                    { service: 'youtube', rarity: 'uncommon', duration: 3, chance: 35 },
+                    { service: 'netflix', rarity: 'rare', duration: 3, chance: 25 },
+                    { service: 'disney', rarity: 'rare', duration: 6, chance: 20 },
+                    { service: 'hbo', rarity: 'epic', duration: 6, chance: 15 },
+                    { service: 'twitch', rarity: 'legendary', duration: 12, chance: 5 }
                 ]
             },
             {
@@ -790,12 +856,12 @@
                 price: 1500,
                 image: 'https://image.pollinations.ai/prompt/premium%20luxury%20case%20box%2C%20gold%20metallic%2C%20glowing%20orange%20energy%2C%20elegant%20design%2C%203D%20render%2C%20dark%20background?width=400&height=300&nologo=true',
                 items: [
-                    { service: 'netflix', rarity: 'rare', price: 1000, chance: 30 },
-                    { service: 'disney', rarity: 'epic', price: 2000, chance: 25 },
-                    { service: 'amazon', rarity: 'epic', price: 2500, chance: 20 },
-                    { service: 'chatgpt', rarity: 'legendary', price: 5000, chance: 15 },
-                    { service: 'github', rarity: 'legendary', price: 6000, chance: 8 },
-                    { service: 'nordvpn', rarity: 'mythic', price: 10000, chance: 2 }
+                    { service: 'netflix', rarity: 'rare', duration: 6, chance: 30 },
+                    { service: 'disney', rarity: 'epic', duration: 6, chance: 25 },
+                    { service: 'amazon', rarity: 'epic', duration: 6, chance: 20 },
+                    { service: 'chatgpt', rarity: 'legendary', duration: 6, chance: 15 },
+                    { service: 'github', rarity: 'legendary', duration: 12, chance: 8 },
+                    { service: 'nordvpn', rarity: 'mythic', duration: 12, chance: 2 }
                 ]
             },
             {
@@ -804,12 +870,12 @@
                 price: 5000,
                 image: 'https://api.dicebear.com/9.x/shapes/svg?seed=legendary&backgroundColor=b91c1c,dc2626,991b1b&scale=120',
                 items: [
-                    { service: 'hbo', rarity: 'epic', price: 3500, chance: 35 },
-                    { service: 'amazon', rarity: 'legendary', price: 7000, chance: 25 },
-                    { service: 'chatgpt', rarity: 'legendary', price: 8000, chance: 20 },
-                    { service: 'github', rarity: 'legendary', price: 9000, chance: 15 },
-                    { service: 'nordvpn', rarity: 'mythic', price: 15000, chance: 4 },
-                    { service: 'dropbox', rarity: 'mythic', price: 20000, chance: 1 }
+                    { service: 'hbo', rarity: 'epic', duration: 6, chance: 35 },
+                    { service: 'amazon', rarity: 'legendary', duration: 12, chance: 25 },
+                    { service: 'chatgpt', rarity: 'legendary', duration: 12, chance: 20 },
+                    { service: 'github', rarity: 'legendary', duration: 12, chance: 15 },
+                    { service: 'nordvpn', rarity: 'mythic', duration: 12, chance: 4 },
+                    { service: 'dropbox', rarity: 'mythic', duration: 12, chance: 1 }
                 ]
             },
             {
@@ -818,17 +884,17 @@
                 price: 15000,
                 image: 'https://api.dicebear.com/9.x/shapes/svg?seed=ai-tech&backgroundColor=06b6d4,0891b2,0e7490&scale=120',
                 items: [
-                    { service: 'chatgpt', rarity: 'legendary', price: 10000, chance: 20 },
-                    { service: 'copilot', rarity: 'legendary', price: 12000, chance: 18 },
-                    { service: 'perplexity', rarity: 'legendary', price: 11000, chance: 17 },
-                    { service: 'midjourney', rarity: 'mythic', price: 25000, chance: 15 },
-                    { service: 'claude', rarity: 'mythic', price: 30000, chance: 12 },
-                    { service: 'mistral', rarity: 'mythic', price: 28000, chance: 10 },
-                    { service: 'runway', rarity: 'divine', price: 50000, chance: 4 },
-                    { service: 'jasper', rarity: 'divine', price: 60000, chance: 2 },
-                    { service: 'dalle', rarity: 'divine', price: 100000, chance: 1 },
-                    { service: 'grok', rarity: 'divine', price: 80000, chance: 0.5 },
-                    { service: 'gemini', rarity: 'divine', price: 90000, chance: 0.5 }
+                    { service: 'chatgpt', rarity: 'legendary', duration: 6, chance: 20 },
+                    { service: 'copilot', rarity: 'legendary', duration: 6, chance: 18 },
+                    { service: 'perplexity', rarity: 'legendary', duration: 6, chance: 17 },
+                    { service: 'midjourney', rarity: 'mythic', duration: 12, chance: 15 },
+                    { service: 'claude', rarity: 'mythic', duration: 12, chance: 12 },
+                    { service: 'mistral', rarity: 'mythic', duration: 12, chance: 10 },
+                    { service: 'runway', rarity: 'divine', duration: 12, chance: 4 },
+                    { service: 'jasper', rarity: 'divine', duration: 12, chance: 2 },
+                    { service: 'dalle', rarity: 'divine', duration: 12, chance: 1 },
+                    { service: 'grok', rarity: 'divine', duration: 12, chance: 0.5 },
+                    { service: 'gemini', rarity: 'divine', duration: 12, chance: 0.5 }
                 ]
             },
             {
@@ -837,13 +903,13 @@
                 price: 20000,
                 image: 'https://api.dicebear.com/9.x/shapes/svg?seed=developer&backgroundColor=16a34a,15803d,166534&scale=120',
                 items: [
-                    { service: 'copilot', rarity: 'legendary', price: 15000, chance: 25 },
-                    { service: 'cursor', rarity: 'mythic', price: 35000, chance: 20 },
-                    { service: 'replit', rarity: 'mythic', price: 32000, chance: 18 },
-                    { service: 'v0', rarity: 'mythic', price: 38000, chance: 15 },
-                    { service: 'claude', rarity: 'mythic', price: 40000, chance: 12 },
-                    { service: 'chatgpt', rarity: 'divine', price: 70000, chance: 7 },
-                    { service: 'poe', rarity: 'divine', price: 85000, chance: 3 }
+                    { service: 'copilot', rarity: 'legendary', duration: 6, chance: 25 },
+                    { service: 'cursor', rarity: 'mythic', duration: 12, chance: 20 },
+                    { service: 'replit', rarity: 'mythic', duration: 12, chance: 18 },
+                    { service: 'v0', rarity: 'mythic', duration: 12, chance: 15 },
+                    { service: 'claude', rarity: 'mythic', duration: 12, chance: 12 },
+                    { service: 'chatgpt', rarity: 'divine', duration: 12, chance: 7 },
+                    { service: 'poe', rarity: 'divine', duration: 12, chance: 3 }
                 ]
             }
         ];
@@ -914,6 +980,7 @@
 
             items.forEach(item => {
                 const sub = subscriptions[item.service];
+                const itemPrice = calculatePrice(sub.basePrice, item.duration);
                 const div = document.createElement('div');
                 div.className = `roll-item ${item.rarity}`;
                 div.innerHTML = `
@@ -921,7 +988,8 @@
                         <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
                     </div>
                     <div style="font-size: 12px; margin-top: 10px;">${sub.name}</div>
-                    <div style="font-size: 14px; color: #FFD700;">$${item.price}</div>
+                    <div style="font-size: 10px; color: #aaa;">${durations[item.duration].name}</div>
+                    <div style="font-size: 14px; color: #FFD700;">$${itemPrice}</div>
                 `;
                 roll.appendChild(div);
             });
@@ -956,7 +1024,8 @@
                         <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
                     </div>
                     <div style="font-size: 18px; margin-top: 10px;">${sub.name}</div>
-                    <div style="font-size: 20px; color: #FFD700;">$${item.price}</div>
+                    <div style="font-size: 14px; color: #aaa; margin-top: 5px;">${durations[item.duration].name}</div>
+                    <div style="font-size: 20px; color: #FFD700;">$${item.price.toLocaleString()}</div>
                 </div>
             `;
             
@@ -1005,6 +1074,7 @@
             const openNext = () => {
                 if (opened < amount) {
                     const wonItem = getRandomItem(caseData.items);
+                    wonItem.price = calculatePrice(subscriptions[wonItem.service].basePrice, wonItem.duration);
                     wonItems.push(wonItem);
                     opened++;
 
@@ -1044,6 +1114,7 @@
                             <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
                         </div>
                         <div style="font-size: 11px; margin-bottom: 3px;">${sub.name}</div>
+                        <div style="font-size: 9px; color: #aaa;">${durations[item.duration].name}</div>
                         <div style="font-size: 12px; color: #FFD700;">$${item.price.toLocaleString()}</div>
                     </div>
                 `;
@@ -1076,7 +1147,8 @@
                             <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
                         </div>
                         <div class="item-name">${sub.name}</div>
-                        <div class="item-price">$${item.price}</div>
+                        <div style="font-size: 12px; color: #aaa; margin-bottom: 5px;">${durations[item.duration].name}</div>
+                        <div class="item-price">$${item.price.toLocaleString()}</div>
                         <button class="sell-btn" onclick="sellItem(${index})">Продать</button>
                     </div>
                 `;
@@ -1111,11 +1183,12 @@
         }
 
         function addToCollection(item) {
-            const key = `${item.service}_${item.rarity}`;
+            const key = `${item.service}_${item.rarity}_${item.duration}`;
             if (!collection[key]) {
                 collection[key] = {
                     service: item.service,
                     rarity: item.rarity,
+                    duration: item.duration,
                     price: item.price,
                     count: 0
                 };
@@ -1146,6 +1219,7 @@
                             <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
                         </div>
                         <div class="item-name">${sub.name}</div>
+                        <div style="font-size: 11px; color: #aaa;">${durations[item.duration].name}</div>
                         <div class="item-price">$${item.price.toLocaleString()}</div>
                     </div>
                 `;
@@ -1163,6 +1237,7 @@
                 <div style="text-align: center; margin-bottom: 20px; font-size: 20px; font-weight: bold;">${caseData.name}</div>
                 ${caseData.items.map(item => {
                     const sub = subscriptions[item.service];
+                    const itemPrice = calculatePrice(sub.basePrice, item.duration);
                     const percentage = ((item.chance / totalChance) * 100).toFixed(2);
                     return `
                         <div class="drop-item ${item.rarity}">
@@ -1172,7 +1247,8 @@
                                 </div>
                                 <div>
                                     <div style="font-weight: bold;">${sub.name}</div>
-                                    <div style="color: #FFD700; font-size: 14px;">$${item.price.toLocaleString()}</div>
+                                    <div style="color: #aaa; font-size: 12px;">${durations[item.duration].name}</div>
+                                    <div style="color: #FFD700; font-size: 14px;">$${itemPrice.toLocaleString()}</div>
                                 </div>
                             </div>
                             <div class="drop-chance">${percentage}%</div>
