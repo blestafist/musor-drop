@@ -94,6 +94,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s;
+            margin: 5px;
         }
 
         .open-btn:hover {
@@ -102,6 +103,140 @@
 
         .open-btn:active {
             transform: scale(0.95);
+        }
+
+        .open-btn-x20 {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 5px;
+            width: calc(100% - 10px);
+        }
+
+        .open-btn-x20:hover {
+            transform: scale(1.05);
+        }
+
+        .open-btn-x20:active {
+            transform: scale(0.95);
+        }
+
+        .slider-container {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .amount-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .amount-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            cursor: pointer;
+        }
+
+        .amount-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .amount-display {
+            font-size: 18px;
+            font-weight: bold;
+            color: #FFD700;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .bulk-progress {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .progress-bar {
+            width: 80%;
+            max-width: 600px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .bulk-results {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            z-index: 2000;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .result-mini-item {
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
         }
 
         .opening-animation {
@@ -350,6 +485,14 @@
 
     <div class="cases-container" id="cases"></div>
 
+    <div class="bulk-progress" id="bulkProgress">
+        <h2 style="margin-bottom: 20px;">Открываем кейсы...</h2>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill">0/20</div>
+        </div>
+        <div id="progressText" style="font-size: 18px; color: #aaa;">Подготовка...</div>
+    </div>
+
     <div class="opening-animation" id="openingAnimation">
         <div class="animation-container">
             <div class="selector"></div>
@@ -360,6 +503,15 @@
     <div class="result-display" id="resultDisplay">
         <div class="result-item" id="resultItem"></div>
         <button class="close-btn" onclick="closeResult()">Забрать</button>
+    </div>
+
+    <div class="bulk-results" id="bulkResults">
+        <h2 style="margin-bottom: 20px; text-align: center;">Результаты открытия</h2>
+        <div class="results-grid" id="resultsGrid"></div>
+        <div style="text-align: center; margin-top: 20px;">
+            <div id="totalValue" style="font-size: 24px; color: #4CAF50; margin-bottom: 20px;"></div>
+            <button class="close-btn" onclick="closeBulkResults()">Забрать всё</button>
+        </div>
     </div>
 
     <div class="inventory">
@@ -498,11 +650,19 @@
         function renderCases() {
             const casesContainer = document.getElementById('cases');
             casesContainer.innerHTML = cases.map(caseItem => `
-                <div class="case-card" onclick="openCase(${caseItem.id})">
+                <div class="case-card">
                     <img src="${caseItem.image}" class="case-image" alt="${caseItem.name}">
                     <div class="case-name">${caseItem.name}</div>
                     <div class="case-price">$${caseItem.price}</div>
-                    <button class="open-btn">Открыть кейс</button>
+                    <button class="open-btn" onclick="openCase(${caseItem.id})">Открыть x1</button>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Массовое открытие</span>
+                        </div>
+                        <input type="range" min="1" max="30" value="10" class="amount-slider" id="slider-${caseItem.id}" oninput="updateSlider(${caseItem.id})">
+                        <div class="amount-display" id="display-${caseItem.id}">x10 = $${(caseItem.price * 10).toLocaleString()}</div>
+                        <button class="open-btn-x20" onclick="openBulkCase(${caseItem.id})">Открыть</button>
+                    </div>
                 </div>
             `).join('');
         }
@@ -599,6 +759,90 @@
 
         function closeResult() {
             document.getElementById('resultDisplay').style.display = 'none';
+        }
+
+        function updateSlider(caseId) {
+            const caseData = cases.find(c => c.id === caseId);
+            const slider = document.getElementById(`slider-${caseId}`);
+            const display = document.getElementById(`display-${caseId}`);
+            const amount = parseInt(slider.value);
+            const totalCost = caseData.price * amount;
+            display.textContent = `x${amount} = $${totalCost.toLocaleString()}`;
+        }
+
+        function openBulkCase(caseId) {
+            const caseData = cases.find(c => c.id === caseId);
+            const slider = document.getElementById(`slider-${caseId}`);
+            const amount = parseInt(slider.value);
+            const totalCost = caseData.price * amount;
+            
+            if (balance < totalCost) {
+                alert('Недостаточно средств! Нужно: $' + totalCost.toLocaleString());
+                return;
+            }
+
+            balance -= totalCost;
+            updateBalance();
+            saveData();
+
+            const bulkProgress = document.getElementById('bulkProgress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            bulkProgress.style.display = 'flex';
+
+            const wonItems = [];
+            let opened = 0;
+
+            const openNext = () => {
+                if (opened < amount) {
+                    const wonItem = getRandomItem(caseData.items);
+                    wonItems.push(wonItem);
+                    opened++;
+
+                    progressFill.style.width = (opened / amount * 100) + '%';
+                    progressFill.textContent = opened + '/' + amount;
+                    progressText.textContent = `Открыто ${opened} из ${amount} кейсов...`;
+
+                    setTimeout(openNext, 200);
+                } else {
+                    bulkProgress.style.display = 'none';
+                    showBulkResults(wonItems);
+                    wonItems.forEach(item => inventory.push(item));
+                    saveData();
+                    renderInventory();
+                }
+            };
+
+            setTimeout(openNext, 300);
+        }
+
+        function showBulkResults(items) {
+            const bulkResults = document.getElementById('bulkResults');
+            const resultsGrid = document.getElementById('resultsGrid');
+            const totalValue = document.getElementById('totalValue');
+
+            let total = 0;
+            resultsGrid.innerHTML = items.map(item => {
+                const sub = subscriptions[item.service];
+                total += item.price;
+                return `
+                    <div class="result-mini-item ${item.rarity}">
+                        <div class="service-logo-small" style="background: ${sub.color}; margin: 0 auto 5px;">
+                            <img src="https://cdn.simpleicons.org/${sub.svg}/white" alt="${sub.name}">
+                        </div>
+                        <div style="font-size: 11px; margin-bottom: 3px;">${sub.name}</div>
+                        <div style="font-size: 12px; color: #FFD700;">$${item.price.toLocaleString()}</div>
+                    </div>
+                `;
+            }).join('');
+
+            totalValue.textContent = `Общая стоимость: $${total.toLocaleString()}`;
+            bulkResults.style.display = 'block';
+        }
+
+        function closeBulkResults() {
+            document.getElementById('bulkResults').style.display = 'none';
         }
 
         function sellItem(index) {
