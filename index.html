@@ -646,7 +646,10 @@
 
     <div id="inventoryView" style="display: none;">
         <div class="inventory">
-            <h2 class="inventory-title">Ваш инвентарь</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 class="inventory-title" style="margin: 0;">Ваш инвентарь</h2>
+                <button class="open-btn" onclick="sellAll()" style="width: auto; padding: 12px 30px;">Продать всё</button>
+            </div>
             <div class="inventory-grid" id="inventory"></div>
         </div>
     </div>
@@ -813,7 +816,54 @@
             hootsuite: { name: 'Hootsuite Professional', color: '#000000', svg: 'hootsuite', basePrice: 49 },
             buffer: { name: 'Buffer Essentials', color: '#168EEA', svg: 'buffer', basePrice: 6 },
             later: { name: 'Later Starter', color: '#FF6B35', svg: 'later', basePrice: 18 },
-            semrush: { name: 'SEMrush Pro', color: '#FF642D', svg: 'semrush', basePrice: 120 }
+            semrush: { name: 'SEMrush Pro', color: '#FF642D', svg: 'semrush', basePrice: 120 },
+            
+            // Еще 50 новых подписок
+            webflow: { name: 'Webflow CMS', color: '#4353FF', svg: 'webflow', basePrice: 23 },
+            framer: { name: 'Framer Pro', color: '#0055FF', svg: 'framer', basePrice: 20 },
+            sketch: { name: 'Sketch Standard', color: '#F7B500', svg: 'sketch', basePrice: 9 },
+            invision: { name: 'InVision Pro', color: '#FF3366', svg: 'invision', basePrice: 8 },
+            abstract: { name: 'Abstract Pro', color: '#7B68EE', svg: 'abstract', basePrice: 15 },
+            gitlab: { name: 'GitLab Premium', color: '#FC6D26', svg: 'gitlab', basePrice: 19 },
+            bitbucket: { name: 'Bitbucket Premium', color: '#0052CC', svg: 'bitbucket', basePrice: 15 },
+            jira: { name: 'Jira Software', color: '#0052CC', svg: 'jira', basePrice: 7 },
+            confluence: { name: 'Confluence Standard', color: '#172B4D', svg: 'confluence', basePrice: 6 },
+            linear: { name: 'Linear Plus', color: '#5E6AD2', svg: 'linear', basePrice: 10 },
+            height: { name: 'Height Pro', color: '#FF6B6B', svg: 'height', basePrice: 10 },
+            notion2: { name: 'Coda Pro', color: '#F46A54', svg: 'coda', basePrice: 10 },
+            obsidian: { name: 'Obsidian Sync', color: '#7C3AED', svg: 'obsidian', basePrice: 8 },
+            roam: { name: 'Roam Research Pro', color: '#1C2F48', svg: 'roamresearch', basePrice: 15 },
+            logseq: { name: 'Logseq Sync', color: '#002B36', svg: 'logseq', basePrice: 5 },
+            craft: { name: 'Craft Pro', color: '#FF5A3D', svg: 'craft', basePrice: 5 },
+            bear: { name: 'Bear Pro', color: '#FF2D55', svg: 'bear', basePrice: 2 },
+            ulysses: { name: 'Ulysses', color: '#5DC4E7', svg: 'ulysses', basePrice: 6 },
+            scrivener: { name: 'Scrivener 3', color: '#0065A8', svg: 'scrivener', basePrice: 5 },
+            ia: { name: 'iA Writer Pro', color: '#1F4FE0', svg: 'iawriter', basePrice: 3 },
+            fantastical: { name: 'Fantastical Premium', color: '#3391FF', svg: 'fantastical', basePrice: 5 },
+            things: { name: 'Things 3', color: '#3478F6', svg: 'things', basePrice: 10 },
+            omnifocus: { name: 'OmniFocus Pro', color: '#C73A3A', svg: 'omnifocus', basePrice: 10 },
+            superhuman: { name: 'Superhuman', color: '#000000', svg: 'superhuman', basePrice: 30 },
+            spark: { name: 'Spark Premium', color: '#FF6A39', svg: 'spark', basePrice: 8 },
+            hey: { name: 'HEY Email', color: '#5522FA', svg: 'hey', basePrice: 99 },
+            protonmail: { name: 'ProtonMail Plus', color: '#6D4AFF', svg: 'protonmail', basePrice: 5 },
+            tutanota: { name: 'Tutanota Premium', color: '#840010', svg: 'tutanota', basePrice: 3 },
+            fastmail: { name: 'Fastmail Standard', color: '#1E4EBD', svg: 'fastmail', basePrice: 5 },
+            setapp: { name: 'Setapp', color: '#6366F1', svg: 'setapp', basePrice: 10 },
+            cleanmymac: { name: 'CleanMyMac X', color: '#0071E3', svg: 'cleanmymac', basePrice: 4 },
+            bartender: { name: 'Bartender 4', color: '#0066CC', svg: 'bartender', basePrice: 2 },
+            alfred: { name: 'Alfred Powerpack', color: '#5C3EAD', svg: 'alfred', basePrice: 3 },
+            raycast: { name: 'Raycast Pro', color: '#FF6363', svg: 'raycast', basePrice: 8 },
+            magnet: { name: 'Magnet', color: '#FF6B6B', svg: 'magnet', basePrice: 1 },
+            divvy: { name: 'Divvy', color: '#00A9E0', svg: 'divvy', basePrice: 1 },
+            hazel: { name: 'Hazel', color: '#00A651', svg: 'hazel', basePrice: 4 },
+            backblaze: { name: 'Backblaze B2', color: '#E62E00', svg: 'backblaze', basePrice: 7 },
+            carbonite: { name: 'Carbonite Safe', color: '#F7931E', svg: 'carbonite', basePrice: 6 },
+            idrive: { name: 'IDrive Personal', color: '#D32027', svg: 'idrive', basePrice: 5 },
+            sync: { name: 'Sync.com Pro', color: '#0077C8', svg: 'sync', basePrice: 8 },
+            pcloud: { name: 'pCloud Premium', color: '#00A3FF', svg: 'pcloud', basePrice: 5 },
+            mega: { name: 'MEGA Pro I', color: '#D9272E', svg: 'mega', basePrice: 5 },
+            box: { name: 'Box Business', color: '#0061D5', svg: 'box', basePrice: 15 },
+            onedrive: { name: 'OneDrive 1TB', color: '#0078D4', svg: 'microsoftonedrive', basePrice: 7 }
         };
 
         const durations = {
@@ -982,7 +1032,7 @@
                         <div class="slider-label">
                             <span>Массовое открытие</span>
                         </div>
-                        <input type="range" min="1" max="30" value="10" class="amount-slider" id="slider-${caseItem.id}" oninput="updateSlider(${caseItem.id})">
+                        <input type="range" min="1" max="100" value="10" class="amount-slider" id="slider-${caseItem.id}" oninput="updateSlider(${caseItem.id})">
                         <div class="amount-display" id="display-${caseItem.id}">x10 = $${(caseItem.price * 10).toLocaleString()}</div>
                         <button class="open-btn-x20" onclick="openBulkCase(${caseItem.id})">Открыть</button>
                     </div>
@@ -1187,10 +1237,30 @@
         function sellItem(index) {
             const item = inventory[index];
             balance += item.price;
+            stats.totalEarned += item.price;
             updateBalance();
             inventory.splice(index, 1);
             saveData();
             renderInventory();
+        }
+
+        function sellAll() {
+            if (inventory.length === 0) {
+                alert('Инвентарь пуст!');
+                return;
+            }
+            
+            const totalValue = inventory.reduce((sum, item) => sum + item.price, 0);
+            const itemCount = inventory.length;
+            
+            if (confirm(`Продать все предметы (${itemCount} шт.) за $${totalValue.toLocaleString()}?`)) {
+                balance += totalValue;
+                stats.totalEarned += totalValue;
+                inventory = [];
+                updateBalance();
+                saveData();
+                renderInventory();
+            }
         }
 
         function renderInventory() {
@@ -1326,6 +1396,8 @@
 
         renderCases();
         renderInventory();
+        updateBalance();
+        saveData();
     </script>
 </body>
 </html>
